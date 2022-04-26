@@ -53,6 +53,18 @@ impl <T> List<T> {
             }
         }
     }
+
+    fn peek(&self) -> Option<&T>{
+        unsafe{
+            self.head.as_ref().map(|node|&node.element)
+        }
+    }
+
+    fn peek_mut(&mut self) -> Option<&mut T>{
+        unsafe{
+            self.head.as_mut().map(|node| &mut node.element)
+        }
+    }
     /*
     fn push(&mut self, element:T) {
         let mut new_node = Node::new(element);
@@ -172,6 +184,7 @@ mod test{
         for _i in 0..10{
             list.push(_i);
         }
+        assert_eq!(list.peek(), Some(&0));
 
         let mut into_iter = list.into_iter();
         for _i in 0..10{
